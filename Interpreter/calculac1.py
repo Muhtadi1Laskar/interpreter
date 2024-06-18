@@ -46,3 +46,16 @@ class Interpreter(object):
             self.current_token = self.get_next_token()
         else:
             self.error()
+    
+    def expr(self):
+        left = self.get_next_token()
+        self.eat(INTEGER)
+
+        op = self.get_next_token()
+        self.eat(PLUS)
+
+        right = self.get_next_token()
+        self.eat(INTEGER)
+
+        result = left.value + right.value
+        return result
