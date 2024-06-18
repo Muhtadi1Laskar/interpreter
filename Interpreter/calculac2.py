@@ -65,6 +65,28 @@ class Interpreter(object):
             self.current_token = self.get_next_token()
         else:
             self.error()
+    
+    def expr(self):
+        self.current_token = self.get_next_token()
+
+        left = self.current_token
+        self.eat(INTEGER)
+
+        op = self.current_token
+        if op.type == PLUS:
+            self.eat(PLUS)
+        else:
+            self.eat(MINUS)
+        
+        right = self.current_token
+        self.eat(INTEGER)
+
+        if op.type == PLUS:
+            result = left.value + right.value
+        else:
+            result = left.value - right.value
+        
+        return result
 
 
 
