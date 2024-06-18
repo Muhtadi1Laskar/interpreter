@@ -59,6 +59,12 @@ class Interpreter(object):
             self.error()
         
         return Token(EOF, None)
+    
+    def eat(self, token_type):
+        if self.current_token.type == token_type:
+            self.current_token = self.get_next_token()
+        else:
+            self.error()
 
 
 
