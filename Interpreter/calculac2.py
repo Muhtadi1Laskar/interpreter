@@ -38,5 +38,27 @@ class Interpreter(object):
             result += self.current_char
             self.advance()
         return int(result)
-
     
+    def get_next_token(self):
+        while self.current_char is not None:
+            if self.current_char.isspace():
+                self.skip_whitespace()
+                continue
+
+            if self.current_char.isdigit():
+                return Token(INTEGER, self.integer())
+            
+            if self.current_char == '+':
+                self.advance()
+                return Token(PLUS, '+')
+            
+            if self.current_char == '-':
+                self.advance()
+                return Token(MINUS, '-')
+            
+            self.error()
+        
+        return Token(EOF, None)
+
+
+
