@@ -48,14 +48,34 @@ class Interpreter(object):
             self.error()
     
     def expr(self):
-        left = self.get_next_token()
+        self.current_token = self.get_next_token()
+
+        left = self.current_token
         self.eat(INTEGER)
 
-        op = self.get_next_token()
+        op = self.current_token
         self.eat(PLUS)
 
-        right = self.get_next_token()
+        right = self.current_token
         self.eat(INTEGER)
 
         result = left.value + right.value
         return result
+
+def main():
+    while True:
+        try:
+            text = input("calc> ")
+        except EOFError:
+            break
+        
+        if not text:
+            continue
+            
+        interpreter = Interpreter(text)
+        result = interpreter.expr()
+
+        print(result)
+    
+if __name__ == '__main__':
+    main()
